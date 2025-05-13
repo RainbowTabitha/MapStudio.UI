@@ -8,6 +8,7 @@ using GLFrameworkEngine;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
 using System.Reflection;
+using OpenTK;
 
 namespace MapStudio.UI
 {
@@ -36,13 +37,18 @@ namespace MapStudio.UI
 
                 //Set the camera instance
                 if (value)
+                {
                     _context.Camera = _camera2D;
+                    // Initialize 2D camera with top-down view
+                    _camera2D.TargetPosition = new Vector3(0, 100, 0);
+                    _camera2D.RotationX = -90;
+                    _camera2D.RotationY = 0;
+                    _camera2D.UpdateMatrices();
+                }
                 else
                     _context.Camera = _camera3D;
                 //Update with changes
                 _context.UpdateViewport = true;
-                //Update camera context with window info
-               // OnResize();
             }
         }
 
